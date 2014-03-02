@@ -22,7 +22,7 @@ template<typename T, s64 _value> struct const_se_t<T, _value, 2>
 
 template<typename T, s64 _value> struct const_se_t<T, _value, 4>
 {
-	static const T value = 
+	static const T value =
 		((_value >> 24) & 0x000000ff) |
 		((_value >>  8) & 0x0000ff00) |
 		((_value <<  8) & 0x00ff0000) |
@@ -31,7 +31,7 @@ template<typename T, s64 _value> struct const_se_t<T, _value, 4>
 
 template<typename T, s64 _value> struct const_se_t<T, _value, 8>
 {
-	static const T value = 
+	static const T value =
 		((_value >> 56) & 0x00000000000000ff) |
 		((_value >> 40) & 0x000000000000ff00) |
 		((_value >> 24) & 0x0000000000ff0000) |
@@ -51,10 +51,10 @@ class be_t
 public:
 	typedef T type;
 #ifdef __GNUG__
-	be_t()	noexcept = default
-#endif
+	be_t()	noexcept = default;
+#else
 	be_t(){}
-
+#endif
 	be_t(const T& value)
 	{
 		FromLE(value);
