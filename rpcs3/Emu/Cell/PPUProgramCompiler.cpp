@@ -239,7 +239,7 @@ int CompilePPUProgram::GetArg(wxString& result, bool func)
 
 		if((text ? end_text : (skip || commit || end)) || endln)
 		{
-			if(text && p > 2 && m_asm[(size_t)p - 2] == '\\' && (p <= 3 || m_asm[(size_t)p - 3] != '\\'))
+			if(text && p > 2 && m_asm[(size_t)p - 2] == '/' && (p <= 3 || m_asm[(size_t)p - 3] != '/'))
 			{
 				continue;
 			}
@@ -288,9 +288,9 @@ int CompilePPUProgram::GetArg(wxString& result, bool func)
 
 			if(text)
 			{
-				for(u32 pos = 0; (s32)(pos = result.find('\\', pos)) >= 0;)
+				for(u32 pos = 0; (s32)(pos = result.find('/', pos)) >= 0;)
 				{
-					if(pos + 1 < result.Len() && result[pos + 1] == '\\')
+					if(pos + 1 < result.Len() && result[pos + 1] == '/')
 					{
 						pos += 2;
 						continue;
@@ -427,7 +427,7 @@ void CompilePPUProgram::DetectArgInfo(Arg& arg)
 
 		arg.value = reg;
 	return;
-		
+
 	case 'c':
 		if(str.Len() > 2 && str[1] == 'r')
 		{
@@ -481,7 +481,7 @@ void CompilePPUProgram::DetectArgInfo(Arg& arg)
 		{
 			if(
 				(str[i] >= '0' && str[i] <= '9') ||
-				(str[i] >= 'a' && str[i] <= 'f') || 
+				(str[i] >= 'a' && str[i] <= 'f') ||
 				(str[i] >= 'A' && str[i] <= 'F')
 			) continue;
 
@@ -558,7 +558,7 @@ bool CompilePPUProgram::SetNextArgType(u32 types, bool show_err)
 
 		return false;
 	}
-		
+
 	const Arg& arg = m_args[m_cur_arg];
 
 	if(arg.type & types)
@@ -772,9 +772,9 @@ void CompilePPUProgram::LoadSp(const wxString& op, Elf64_Shdr& s_opd)
 		Arg a_src1(src1);
 		DetectArgInfo(a_src1);
 
-		if(sp == SP_STRLEN 
+		if(sp == SP_STRLEN
 			? ~(ARG_TXT | ARG_BRANCH) & a_src1.type
-			: sp == SP_STRING 
+			: sp == SP_STRING
 				? ~ARG_TXT & a_src1.type
 				: ~(ARG_IMM | ARG_BRANCH) & a_src1.type)
 		{
@@ -950,7 +950,7 @@ void CompilePPUProgram::Compile()
 		m_err_list->Freeze();
 		m_err_list->Clear();
 	}
-		
+
 	if(m_analyze && m_hex_list)
 	{
 		m_hex_list->Freeze();
@@ -1527,7 +1527,7 @@ void CompilePPUProgram::Compile()
 		prx_param.libstubstart = re32(s_lib_stub_top.sh_addr + s_lib_stub_top.sh_size);
 		prx_param.libstubend = re32(s_lib_stub_btm.sh_addr);
 		prx_param.ver = re16(0x101);
-			
+
 		elf_info.e_entry = s_opd.sh_addr;
 
 		f.Seek(0);

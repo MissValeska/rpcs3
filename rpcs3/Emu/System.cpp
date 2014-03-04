@@ -60,7 +60,7 @@ void Emulator::CheckStatus()
 	if(!threads.GetCount())
 	{
 		Stop();
-		return;	
+		return;
 	}
 
 	bool IsAllPaused = true;
@@ -114,7 +114,7 @@ bool Emulator::DecryptSelf(const std::string& elf, const std::string& self)
 		ConLog.Error("Could not open SELF file! (%s)", wxString(self).wx_str());
 		return false;
 	}
-	
+
 	// Get the key version.
 	f.Seek(0x08);
 	be_t<u16> key_version;
@@ -161,12 +161,12 @@ bool Emulator::BootGame(const std::string& path)
 {
 	static const char* elf_path[6] =
 	{
-		"\\PS3_GAME\\USRDIR\\BOOT.BIN",
-		"\\USRDIR\\BOOT.BIN",
-		"\\BOOT.BIN",
-		"\\PS3_GAME\\USRDIR\\EBOOT.BIN",
-		"\\USRDIR\\EBOOT.BIN",
-		"\\EBOOT.BIN",
+		"/PS3_GAME/USRDIR/BOOT.BIN",
+		"/USRDIR/BOOT.BIN",
+		"/BOOT.BIN",
+		"/PS3_GAME/USRDIR/EBOOT.BIN",
+		"/USRDIR/EBOOT.BIN",
+		"/EBOOT.BIN",
 	};
 
 	for(int i=0; i<sizeof(elf_path) / sizeof(*elf_path);i++)
@@ -196,11 +196,11 @@ void Emulator::Load()
 
 		if(wxFileName(m_path).GetFullName().CmpNoCase("EBOOT.BIN") == 0)
 		{
-			elf_path += "\\BOOT.BIN";
+			elf_path += "/BOOT.BIN";
 		}
 		else
 		{
-			elf_path += "\\" + wxFileName(m_path).GetName() + ".elf";
+			elf_path += "/" + wxFileName(m_path).GetName() + ".elf";
 		}
 
 		if(!DecryptSelf(elf_path, self_path))
@@ -259,7 +259,7 @@ void Emulator::Load()
 
 			is_error = !l.Load();
 		}
-		
+
 	}
 	catch(const wxString& e)
 	{
@@ -477,7 +477,7 @@ void Emulator::SavePoints(const std::string& path)
 	u32 marked_count = m_marked_points.GetCount();
 
 	f << bpdb_version << break_count << marked_count;
-	
+
 	if(break_count)
 	{
 		f.write(reinterpret_cast<char*>(&m_break_points[0]), sizeof(u64) * break_count);

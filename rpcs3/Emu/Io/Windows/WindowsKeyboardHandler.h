@@ -167,7 +167,7 @@ public:
 		m_keyboards[0].m_buttons.Move(new KbButton(',', CELL_KEYC_COMMA));
 		m_keyboards[0].m_buttons.Move(new KbButton('.', CELL_KEYC_PERIOD));
 		m_keyboards[0].m_buttons.Move(new KbButton('/', CELL_KEYC_SLASH));
-		m_keyboards[0].m_buttons.Move(new KbButton('\\', CELL_KEYC_BACKSLASH_106));
+		m_keyboards[0].m_buttons.Move(new KbButton('/', CELL_KEYC_BACKSLASH_106));
 		//m_keyboards[0].m_buttons.Move(new KbButton(, CELL_KEYC_YEN_106));
 	}
 };

@@ -48,14 +48,27 @@ class be_t
 	static_assert(size == 1 || size == 2 || size == 4 || size == 8, "Bad be_t type");
 	T m_data;
 
-public:
-	typedef T type;
-#ifdef __GNUG__
+ public:
+
+ 	typedef T type;
+
+
+
+ #ifdef _WIN32
+
+ 	be_t(){}
+
+ #else
+
+	be_t()	noexcept = default
+
 	be_t()	noexcept = default;
-#else
-	be_t(){}
-#endif
-	be_t(const T& value)
+
+ #endif
+
+
+
+ 	be_t(const T& value)
 	{
 		FromLE(value);
 	}

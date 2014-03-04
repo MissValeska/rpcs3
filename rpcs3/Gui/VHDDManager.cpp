@@ -29,7 +29,7 @@ void VHDDListDropTarget::OnLeave()
 }
 
 wxDragResult VHDDListDropTarget::OnData(wxCoord x, wxCoord y, wxDragResult def)
-{	
+{
 	int flags = 0;
 	int dst_indx = m_parent->HitTest(wxPoint(x, y), flags);
 	ConLog.Write("OnData(%d -> %d)", m_src_indx, dst_indx);
@@ -227,7 +227,7 @@ void VHDDExplorer::OnOpen(wxCommandEvent& event)
 void VHDDExplorer::OnRename(wxCommandEvent& event)
 {
 	TextInputDialog dial(this, m_names[m_list->GetFirstSelected()]);
-	
+
 	if(dial.ShowModal() == wxID_OK)
 	{
 		m_hdd->Rename(m_names[m_list->GetFirstSelected()], dial.GetResult());
@@ -300,7 +300,7 @@ void VHDDExplorer::OnExport(wxCommandEvent& event)
 
 		for(int sel = m_list->GetNextSelected(-1); sel != wxNOT_FOUND; sel = m_list->GetNextSelected(sel))
 		{
-			Export(m_names[sel], ctrl.GetPath() + '\\' + m_names[sel]);
+			Export(m_names[sel], ctrl.GetPath() + '/' + m_names[sel]);
 		}
 	}
 	else
@@ -452,7 +452,7 @@ void VHDDManagerDialog::AddHDD(wxCommandEvent& event)
 				break;
 			}
 		}
-		
+
 		if(!skip)
 		{
 			m_pathes.Move(new wxString(pathes[i].c_str()));
@@ -500,7 +500,7 @@ void VHDDManagerDialog::OnCreateHDD(wxCommandEvent& event)
 	}
 
 	VHDDSetInfoDialog dial(this);
-	
+
 	if(dial.ShowModal() == wxID_OK)
 	{
 		u64 size, bsize;

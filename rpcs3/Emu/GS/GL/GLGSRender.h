@@ -24,7 +24,7 @@ u32 LinearToSwizzleAddress(u32 x, u32 y, u32 z, u32 log2_width, u32 log2_height,
 class GLTexture
 {
 	u32 m_id;
-	
+
 public:
 	GLTexture() : m_id(0)
 	{
@@ -71,7 +71,7 @@ public:
 			ConLog.Error("Bad texture address=0x%x", GetAddress(tex.GetOffset(), tex.GetLocation()));
 			return;
 		}
-		//ConLog.Warning("texture addr = 0x%x, width = %d, height = %d, max_aniso=%d, mipmap=%d, remap=0x%x, zfunc=0x%x, wraps=0x%x, wrapt=0x%x, wrapr=0x%x, minlod=0x%x, maxlod=0x%x", 
+		//ConLog.Warning("texture addr = 0x%x, width = %d, height = %d, max_aniso=%d, mipmap=%d, remap=0x%x, zfunc=0x%x, wraps=0x%x, wrapt=0x%x, wrapr=0x%x, minlod=0x%x, maxlod=0x%x",
 		//	m_offset, m_width, m_height, m_maxaniso, m_mipmap, m_remap, m_zfunc, m_wraps, m_wrapt, m_wrapr, m_minlod, m_maxlod);
 		//TODO: safe init
 		checkForGlError("GLTexture::Init() -> glBindTexture");
@@ -88,7 +88,7 @@ public:
 		case CELL_GCM_TEXTURE_B8:
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tex.GetWidth(), tex.GetHeight(), 0, GL_BLUE, GL_UNSIGNED_BYTE, pixels);
 			checkForGlError("GLTexture::Init() -> glTexImage2D");
-			
+
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_R, GL_BLUE);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_G, GL_BLUE);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_B, GL_BLUE);
@@ -149,7 +149,7 @@ public:
 			checkForGlError("GLTexture::Init() -> glCompressedTexImage2D");
 		}
 		break;
-		
+
 		case CELL_GCM_TEXTURE_X16:
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tex.GetWidth(), tex.GetHeight(), 0, GL_RED, GL_SHORT, pixels);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_R, GL_ONE);
@@ -198,7 +198,7 @@ public:
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_G, gl_remap[remap_g]);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_B, gl_remap[remap_b]);
 		}
-		
+
 		checkForGlError("GLTexture::Init() -> remap");
 
 		static const int gl_tex_zfunc[] =
@@ -212,20 +212,20 @@ public:
 			GL_GEQUAL,
 			GL_ALWAYS,
 		};
-		
+
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GetGlWrap(tex.GetWrapS()));
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GetGlWrap(tex.GetWrapT()));
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GetGlWrap(tex.GetWrapR()));
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, gl_tex_zfunc[tex.GetZfunc()]);
 
 		checkForGlError("GLTexture::Init() -> parameters1");
-		
+
 		glTexEnvi(GL_TEXTURE_FILTER_CONTROL, GL_TEXTURE_LOD_BIAS, tex.GetBias());
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_LOD, (tex.GetMinLOD() >> 8));
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LOD, (tex.GetMaxLOD() >> 8));
 
 		checkForGlError("GLTexture::Init() -> parameters2");
-		
+
 		static const int gl_tex_filter[] =
 		{
 			GL_NEAREST,
@@ -304,7 +304,7 @@ public:
 	void Save(RSXTexture& tex)
 	{
 		static const wxString& dir_path = "textures";
-		static const wxString& file_fmt = dir_path + "\\" + "tex[%d].png";
+		static const wxString& file_fmt = dir_path + "/" + "tex[%d].png";
 
 		if(!wxDirExists(dir_path)) wxMkDir(dir_path);
 

@@ -695,7 +695,7 @@ public:
 
 		do
 		{
-			if(s[pos] == '\\' || s[pos] == '\0')
+			if(s[pos] == '/' || s[pos] == '\0')
 			{
 				if(file_pos != -1)
 				{
@@ -711,7 +711,7 @@ public:
 						{
 							return false;
 						}
-						
+
 						if(res == 1)
 						{
 							file_pos = from;

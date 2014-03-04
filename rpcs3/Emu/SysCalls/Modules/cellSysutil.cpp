@@ -119,9 +119,9 @@ enum
 
 enum{
 	CELL_SYSCACHE_RET_OK_CLEARED		= 0,
-	CELL_SYSCACHE_RET_OK_RELAYED		= 1, 
+	CELL_SYSCACHE_RET_OK_RELAYED		= 1,
 
-	CELL_SYSCACHE_ID_SIZE				= 32,	
+	CELL_SYSCACHE_ID_SIZE				= 32,
 	CELL_SYSCACHE_PATH_MAX				= 1055,
 
 	CELL_SYSCACHE_ERROR_ACCESS_ERROR	= 0x8002bc01,//I don't think we need this
@@ -316,7 +316,7 @@ int cellVideoOutGetResolution(u32 resolutionId, u32 resolution_addr)
 	{
 		return CELL_EFAULT;
 	}
-	
+
 	u32 num = ResolutionIdToNum(resolutionId);
 
 	if(!num)
@@ -433,7 +433,7 @@ int cellVideoOutGetDeviceInfo(u32 videoOut, u32 deviceIndex, mem_ptr_t<CellVideo
 	info->availableModes[0].refreshRates = 0xF;
 	info->availableModes[0].resolutionId = 1;
 	info->availableModes[0].scanMode = 0;
-	
+
 	return CELL_OK;
 }
 
@@ -904,7 +904,7 @@ int cellAudioOutSetCopyControl(u32 audioOut, u32 control)
 		case CELL_AUDIO_OUT_COPY_CONTROL_COPY_ONCE:
 		case CELL_AUDIO_OUT_COPY_CONTROL_COPY_NEVER:
 			break;
-			
+
 		default: return CELL_AUDIO_OUT_ERROR_ILLEGAL_PARAMETER;
 	}
 
@@ -953,7 +953,7 @@ int cellSysCacheClear(void)
 	Emu.GetVFS().GetDevice(wxString("/dev_hdd1/cache/"), localPath);
 	if (wxDirExists(localPath)){
 		WxDirDeleteTraverser deleter;
-		wxString f = wxFindFirstFile(localPath+"\\*",wxDIR);
+		wxString f = wxFindFirstFile(localPath+"/*",wxDIR);
 		while (!f.empty())
 		{
 			wxDir dir(f);

@@ -78,7 +78,7 @@ CompilerELF::CompilerELF(wxWindow* parent)
 	asm_list->WriteText(
 		".int [sys_tty_write, 0x193]\n"
 		".int [sys_process_exit, 0x003]\n"
-		".string [str, \"Hello World!\\n\"]\n"
+		".string [str, \"Hello World!/n\"]\n"
 		".strlen [str_len, str]\n"
 		".buf [ret, 8]\n"
 		"\n"
@@ -104,7 +104,7 @@ CompilerELF::CompilerELF(wxWindow* parent)
 		"	b 	exit, 0, 0\n"
 		"\n"
 		"exit_err:\n"
-		".string [str, \"error.\\n\"]\n"
+		".string [str, \"error./n\"]\n"
 		".srr [str_hi, str, 16]\n"
 		".and [str_lo, str, 0xffff]\n"
 		".strlen [str_len, str]\n"
@@ -222,7 +222,7 @@ void CompilerELF::OnUpdate(wxCommandEvent& event)
 		SetOpStyle(m_instructions[i].name, "Blue");
 	}
 	*/
-	
+
 	SetOpStyle(".int", "Blue");
 	SetOpStyle(".string", "Blue");
 	SetOpStyle(".strlen", "Blue");
@@ -253,7 +253,7 @@ void CompilerELF::OnUpdate(wxCommandEvent& event)
 
 		asm_list->SetStyle(from, p, wxTextAttr(0x009900));
 	}
-	
+
 	for(int p=0; (p = asm_list->GetValue().find('"', p)) >= 0;)
 	{
 		const int from = p++;
@@ -265,9 +265,9 @@ void CompilerELF::OnUpdate(wxCommandEvent& event)
 			p2 = asm_list->GetValue().find('"', p2);
 			if(p2 == -1) break;
 
-			if(asm_list->GetValue()[p2 - 1] == '\\')
+			if(asm_list->GetValue()[p2 - 1] == '/')
 			{
-				if(p2 > 2 && asm_list->GetValue()[p2 - 2] == '\\') break;
+				if(p2 > 2 && asm_list->GetValue()[p2 - 2] == '/') break;
 
 				p2++;
 				continue;
@@ -406,7 +406,7 @@ void CompilerELF::SetTextStyle(const wxString& text, const wxColour& color, bool
 {
 	for(int p=0; (p = asm_list->GetValue().find(text, p)) >= 0; p += text.Len())
 	{
-		asm_list->SetStyle(p, p + text.Len(), wxTextAttr(color, wxNullColour, 
+		asm_list->SetStyle(p, p + text.Len(), wxTextAttr(color, wxNullColour,
 			wxFont(-1, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, bold ? wxFONTWEIGHT_BOLD : wxFONTWEIGHT_NORMAL)));
 	}
 }
@@ -416,7 +416,7 @@ void CompilerELF::SetOpStyle(const wxString& text, const wxColour& color, bool b
 	/*
 	for(int p=0; (p = FindOp(asm_list->GetValue(), text, p)) >= 0; p += text.Len())
 	{
-		asm_list->SetStyle(p, p + text.Len(), wxTextAttr(color, wxNullColour, 
+		asm_list->SetStyle(p, p + text.Len(), wxTextAttr(color, wxNullColour,
 			wxFont(-1, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, bold ? wxFONTWEIGHT_BOLD : wxFONTWEIGHT_NORMAL)));
 	}
 	*/

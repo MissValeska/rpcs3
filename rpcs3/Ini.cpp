@@ -45,7 +45,7 @@ static wxSize StringToSize(const wxString str)
 
 		s[a] += str(i, 1);
 	}
-	
+
 	if(s[0].IsEmpty() || s[1].IsEmpty())
 	{
 		return wxDefaultSize;
@@ -83,7 +83,7 @@ static wxPoint StringToPosition(const wxString str)
 
 		s[a] += str(i, 1);
 	}
-	
+
 	if(s[0].IsEmpty() || s[1].IsEmpty())
 	{
 		return wxDefaultPosition;
@@ -121,7 +121,7 @@ static WindowInfo StringToWindowInfo(const wxString str)
 
 		s[a] += str(i, 1);
 	}
-	
+
 	if(s[0].IsEmpty() || s[1].IsEmpty() || s[2].IsEmpty() || s[3].IsEmpty())
 	{
 		return WindowInfo::GetDefault();
@@ -152,7 +152,7 @@ Ini::Ini()
 {
 #ifdef _WIN32
 	m_Config = new wxIniConfig( wxEmptyString, wxEmptyString,
-			wxGetCwd() + "\\rpcs3.ini",
+			wxGetCwd() + "/rpcs3.ini",
 			wxEmptyString, wxCONFIG_USE_LOCAL_FILE );
 #else
 		m_Config = new wxConfig("rpcs3");
